@@ -8,7 +8,8 @@ console.log(productId);
 
 const data = new ProductDetails(productId, dataSource);
 
-data.init();
+data.init()
+console.log(data);
 
 /* function addProductToCart(product) {
   const cart = getLocalStorage("SO-cart") || [];
