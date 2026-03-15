@@ -24,6 +24,10 @@ export default defineConfig({
           src: "json/*",
           dest: "json",
         },
+        {
+          src: "images/*",
+          dest: "images",
+        }
       ],
     }),
   ],
