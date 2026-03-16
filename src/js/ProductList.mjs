@@ -15,7 +15,6 @@ export default class ProductList {
         productListElement.innerHTML = this.products
         .map((product) => productCardTemplate(product))
         .join("");
-        console.log(productListElement);
     }
 
 }

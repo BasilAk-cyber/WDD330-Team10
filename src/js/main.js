@@ -1,33 +1,20 @@
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
-import { getParams } from "./utils.mjs";
-import ProductDetails from "./ProductDetails.mjs";
-import AllProductData from "./AllProductsData.mjs"
+import loadAllProducts from "./allproduct.mjs";
+
+const products = await loadAllProducts();
 
 const dataSource = new ProductData("tents");
 const productList = new ProductList("Tents", dataSource);
 productList.init();
 
-const[backpacks, tents, sleepingbags] = await Promise.all([
-    new ProductData("backpacks").getData(),
-    new ProductData("tents").getData(),
-    new ProductData("sleeping-bags").getData()
-])
-
-const products = [...backpacks, ...tents, ...sleepingbags];
 //console.log(products);
-const productId = getParams("product");
-
-const allData = new AllProductData(products);
-
-const data = new ProductDetails(productId, allData);
-console.log(data);
-data.init();
 
 
 const input = document.querySelector("#searchInput");
 input.addEventListener("input", () => {
     const query = input.value;
+    console.log(products);
     handleSearch(query, products);
 })
 
@@ -51,7 +38,7 @@ function renderSearchCards(filteredProducts){
                             .join("");
 }
 
-function handleSearch(query, products){
+function handleSearch(query, items){
     const status = document.querySelector("#status");
     const cleanQuery = query.trim().toLowerCase();
     if (!cleanQuery) {
@@ -60,11 +47,9 @@ function handleSearch(query, products){
         return;
     }
 
-    console.log(products);
+    console.log(items);
 
-    const filtered = products.filter((product) => {
-        return product?.Name.toLowerCase().includes(cleanQuery);
-    });
+    const filtered = items.filter((product) => product?.Name.toLowerCase().includes(cleanQuery));
     console.log(filtered);
     const count = filtered.length;
     console.log(count);
