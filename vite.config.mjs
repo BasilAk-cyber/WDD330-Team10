@@ -4,7 +4,11 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
   root: "src/",
-
+  esbuild: {
+    supported: {
+      "top-level-await": true,
+    },
+  },
   build: {
     outDir: "../dist",
     rollupOptions: {
