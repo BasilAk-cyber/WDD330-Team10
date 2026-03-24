@@ -27,3 +27,39 @@ export function getParams(product){
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(product);
 }
+
+export function renderListWithTemplate(list, templateFunction, parentElement, position = "afterbegin") {
+  parentElement.innerHTML = ""; 
+
+  const htmlStrings = list.map(templateFunction);
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
+
+export function renderWithTemplate(template, parentElement, data, callback) {
+  parentElement.innerHTML = template;
+  if(callback) {
+    callback(data);
+  }
+}
+
+export function loadTemplate(url) {
+  return fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();
+    });
+}
+
+export async function loadHeaderFooter() {
+  const headerTemplate = await loadTemplate("/partials/header.html");
+  const footerTemplate = await loadTemplate("/partials/footer.html");
+
+  const headerEl = document.querySelector("header");
+  const footerEl = document.querySelector("footer");
+
+  renderWithTemplate(headerTemplate, headerEl);
+  renderWithTemplate(footerTemplate, footerEl);
+}
+

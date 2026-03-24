@@ -1,7 +1,10 @@
+import { renderListWithTemplate } from "./utils.mjs";
+
 export default class ProductList {
   constructor(category, dataSource) {
     this.category = category;
     this.dataSource = dataSource;
+    this.parentElement = document.querySelector(".product-list");
   }
 
   async init() {
@@ -11,10 +14,7 @@ export default class ProductList {
   }
 
     renderProductList() {
-        const productListElement = document.querySelector(".product-list");
-        productListElement.innerHTML = this.products
-        .map((product) => productCardTemplate(product))
-        .join("");
+      renderListWithTemplate(this.products, productCardTemplate, this.parentElement);
     }
 
 }
