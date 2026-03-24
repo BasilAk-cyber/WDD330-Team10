@@ -296,6 +296,14 @@ button {
   font-size:12px;
 }
 
+.catergory-nav{
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
